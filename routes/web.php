@@ -22,10 +22,10 @@ use Inertia\Inertia;
 
 Route::get('/', static function () {
     return inertia('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
+        'canLogin'       => Route::has('login'),
+        'canRegister'    => Route::has('register'),
         'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'phpVersion'     => PHP_VERSION,
     ]);
 })->name('index');
 
@@ -35,7 +35,7 @@ Route::get('/dashboard', static function () {
 
 
 // Роутинг для "Доски объявлений"
-Route::resource('message-board', MessageBoardController::class)->only(['index', 'create', 'edit']);
+Route::resource('message-board', MessageBoardController::class)->only(['index', 'create', 'store', 'edit']);
 
 Route::controller(MessageBoardController::class)->group(function () {
     Route::prefix('/message-board')->group(function () {

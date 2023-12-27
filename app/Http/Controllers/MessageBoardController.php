@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MessageBoard\StoreMessageBoardRequest;
 use App\Models\MessageBoard;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\ResponseFactory;
@@ -19,7 +21,7 @@ class MessageBoardController extends Controller
         $messages = MessageBoard::AllMessages();
         return inertia('MessageBoard/Index', [
             'props_int' => 5,
-            'messages' => $messages,
+            'messages'  => $messages,
         ]);
     }
 
@@ -29,16 +31,23 @@ class MessageBoardController extends Controller
     public function create(): Response|ResponseFactory
     {
         return inertia('MessageBoard/Create', [
-            'props_int' => 4,
+            'props_int' => 444,
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMessageBoardRequest $request): RedirectResponse
     {
-        //
+        $message = $request->validated();
+        MessageBoard::query()->create($message);
+        sleep(1);
+
+        return redirect()->route('message-board.index')->with([
+            'flash_message' => "Сообщение успешно создано",
+            'class'         => 'alert alert-success',
+        ]);
     }
 
     /**

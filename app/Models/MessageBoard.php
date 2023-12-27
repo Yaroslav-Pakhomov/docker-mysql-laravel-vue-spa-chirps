@@ -30,6 +30,6 @@ class MessageBoard extends Model
 
     public static function AllMessages(): Collection
     {
-        return self::all();
+        return self::query()->orderBy('created_at', 'desc')->get();
     }
 }
