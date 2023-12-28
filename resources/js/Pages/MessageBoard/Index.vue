@@ -1,6 +1,7 @@
 <script setup>
 import {Head, Link} from '@inertiajs/vue3';
 
+
 // export default {}
 
 defineProps({
@@ -39,13 +40,8 @@ defineProps({
         >Главная
         </Link>
         <br>
-        <!--        <Link-->
-        <!--            :href="route('message-board.show', [props_int])"-->
-        <!--            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"-->
-        <!--        >Объявление-->
-        <!--        </Link>-->
         <Link
-            :href="route('message-board.create', [props_int])"
+            :href="route('message-board.create')"
             class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
             Создание объявление
         </Link>
@@ -77,7 +73,9 @@ defineProps({
                 <br>
                 Содержание: {{ message.content }}
                 <br>
-                Слаг: {{ message.slug }}
+                Создано: {{ message.created_at }}
+                <br>
+                Обновлено: {{ message.updated_at }}
                 <br>
                 <Link
                     :href="route('message-board.show', [message.slug])"

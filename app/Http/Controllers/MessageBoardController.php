@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MessageBoard\StoreMessageBoardRequest;
+use App\Http\Resources\MessageBoard\MessageBoardResource;
 use App\Models\MessageBoard;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +20,9 @@ class MessageBoardController extends Controller
     public function index(): Response|ResponseFactory
     {
         $messages = MessageBoard::AllMessages();
+        // ->resolve() - избавляемся от слова 'data'
+        $messages = MessageBoardResource::collection($messages)->resolve();
+
         return inertia('MessageBoard/Index', [
             'props_int' => 5,
             'messages'  => $messages,
