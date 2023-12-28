@@ -1,29 +1,21 @@
-<script setup>
+<script>
 import {Head, Link} from '@inertiajs/vue3';
 
+export default {
+    // Название компонента
+    name: 'IndexMessages',
 
-// export default {}
-
-defineProps({
-    props_int: {
-        type: Number,
+    components: {
+        Head,
+        Link,
     },
-    messages: {
-        type: Array,
+
+    // Свойства от родительского компонента, от контроллера
+    props: {
+        props_int: Number,
+        messages: Array,
     },
-});
-
-// export default {
-//     // Название компонента
-//     name: 'IndexMessages',
-//
-//     // Свойства от родительского компонента, от контроллера
-//     props: {
-//         props_int: Number,
-//         messages: Array,
-//     },
-// }
-
+}
 
 </script>
 

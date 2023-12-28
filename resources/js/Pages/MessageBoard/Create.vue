@@ -100,7 +100,7 @@ export default {
             title: '',
             slug: '',
             content: '',
-            // errors: {title: '', slug: '', content: ''},
+            // errors: this.errors,
         };
     },
 
@@ -123,7 +123,8 @@ export default {
         },
 
         createSubmit() {
-            router.post('/message-board', {title: this.title, slug: this.slug, content: this.content});
+            // router.post('/message-board', {title: this.title, slug: this.slug, content: this.content});
+            this.$inertia.post('/message-board', {title: this.title, slug: this.slug, content: this.content});
         },
     },
 }
@@ -193,7 +194,7 @@ export default {
                     <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
                     <button type="submit"
                             class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Save
+                        Сохранить
                     </button>
                 </div>
             </form>

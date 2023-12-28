@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MessageBoard\StoreMessageBoardRequest;
+use App\Http\Requests\MessageBoard\UpdateMessageBoardRequest;
 use App\Http\Resources\MessageBoard\MessageBoardResource;
 use App\Models\MessageBoard;
 use Illuminate\Http\RedirectResponse;
@@ -59,27 +60,38 @@ class MessageBoardController extends Controller
      */
     public function show(MessageBoard $messageBoard): Response|ResponseFactory
     {
+        $message = MessageBoardResource::make($messageBoard)->resolve();
+
         return inertia('MessageBoard/Show', [
-            'message' => $messageBoard,
+            'message' => $message,
         ]);
     }
 
     /**
-     * Show the form for editing the specified resource.       MessageBoard $messageBoard
+     * Show the form for editing the specified resource.
      */
-    public function edit(): Response|ResponseFactory
+    public function edit(MessageBoard $messageBoard): Response|ResponseFactory
     {
+        $message = MessageBoardResource::make($messageBoard)->resolve();
+
         return inertia('MessageBoard/Edit', [
-            'props_int' => 2,
+            'message' => $message,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MessageBoard $messageBoard)
+    public function update(UpdateMessageBoardRequest $request, MessageBoard $messageBoard): RedirectResponse
     {
-        //
+        $message = $request->validated();
+        $messageBoard->update($message);
+
+        return redirect()->route('message-board.show', [$messageBoard->slug])->with([
+            'flash_message' => "Сообщение успешно обновлено",
+            'class'         => 'alert alert-success',
+        ]);
+
     }
 
     /**

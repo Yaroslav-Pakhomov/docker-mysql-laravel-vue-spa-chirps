@@ -35,7 +35,7 @@ Route::get('/dashboard', static function () {
 
 
 // Роутинг для "Доски объявлений"
-Route::resource('message-board', MessageBoardController::class)->only(['index', 'create', 'store', 'edit']);
+Route::resource('message-board', MessageBoardController::class)->only(['index', 'create', 'store', 'update']);
 
 Route::controller(MessageBoardController::class)->group(function () {
     Route::prefix('/message-board')->group(function () {
@@ -43,6 +43,9 @@ Route::controller(MessageBoardController::class)->group(function () {
 
             // Страница объявления
             Route::get('/{messageBoard:slug}', 'show')->where('message-board:slug', '[a-z0-9_-]+')->name('show');
+
+            // Редактирование объявления
+            Route::get('/{messageBoard:slug}/edit', 'edit')->where('message-board:slug', '[a-z0-9_-]+')->name('edit');
         });
     });
 });

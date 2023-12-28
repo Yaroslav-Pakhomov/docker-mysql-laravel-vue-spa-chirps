@@ -27,6 +27,17 @@ defineProps({
             class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
         >Все объявления
         </Link>
+        <!-- Флэш-сообщения начало -->
+        <div
+            v-if="$page.props.flash.message"
+            class="p-4 mt-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+            role="alert"
+        >
+                    <span class="font-medium">
+                        {{ $page.props.flash.message }}
+                    </span>
+        </div>
+        <!-- Флэш-сообщения конец -->
         <div class="w-auto mx-auto text-center">
             <br>
             <br>
@@ -39,7 +50,15 @@ defineProps({
             <br>
             Слаг: {{ message.slug }}
             <br>
+            <div class="ml-auto mt-2 text-sm text-justify leading-6 text-gray-600"> Создано: {{ message.created_at }} </div>
+
+            <div class="mt-2 mb-4 text-sm text-justify leading-6 text-gray-600"> Обновлено: {{ message.updated_at }} </div>
         </div>
+        <Link
+            :href="route('message-board.edit', [ message.slug ])"
+            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+        >Редактировать
+        </Link>
     </div>
 
 </template>
