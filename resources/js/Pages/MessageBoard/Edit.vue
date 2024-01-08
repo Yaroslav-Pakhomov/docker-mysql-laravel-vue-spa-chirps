@@ -117,7 +117,11 @@ export default {
         updateSubmit() {
             // console.log(this.title);
             // this.$inertia.patch('/message-board',{ title: this.title, slug: this.slug, content: this.content });
-            this.$inertia.patch(`/message-board/${ this.message.id }`, { title: this.title, slug: this.slug, content: this.content });
+            this.$inertia.patch(`/message-board/${this.message.id}`, {
+                title: this.title,
+                slug: this.slug,
+                content: this.content
+            });
         }
     },
 }
@@ -181,14 +185,21 @@ export default {
                         предложений.</p>
                 </div>
 
-                <div class="mt-2 text-sm text-justify leading-6 text-gray-600"> Создано: {{ message.created_at }} </div>
+                <div class="mt-2 text-sm text-justify leading-6 text-gray-600"> Создано: {{ message.created_at }}</div>
 
-                <div class="mt-2 text-sm text-justify leading-6 text-gray-600"> Обновлено: {{ message.updated_at }} </div>
+                <div class="mt-2 text-sm text-justify leading-6 text-gray-600"> Обновлено: {{
+                        message.updated_at
+                    }}
+                </div>
 
                 <div class="mt-6 flex items-center justify-end gap-x-6">
-                    <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                    <Link
+                        :href="route('message-board.show', [message.slug])"
+                        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                        Отмена
+                    </Link>
                     <button type="submit"
-                            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
                         Сохранить
                     </button>
                 </div>

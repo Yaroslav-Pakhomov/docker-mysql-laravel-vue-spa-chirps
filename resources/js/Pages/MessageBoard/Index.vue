@@ -12,7 +12,6 @@ export default {
 
     // Свойства от родительского компонента, от контроллера
     props: {
-        props_int: Number,
         messages: Array,
     },
 }
@@ -35,12 +34,7 @@ export default {
         <Link
             :href="route('message-board.create')"
             class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-            Создание объявление
-        </Link>
-        <Link
-            :href="route('message-board.edit', ['props_int'])"
-            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-            Редактирование объявления
+            Создание объявления
         </Link>
 
         <div class="w-auto mx-auto text-center">
@@ -71,8 +65,8 @@ export default {
                 <br>
                 <Link
                     :href="route('message-board.show', [message.slug])"
-                    class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                >Смотреть
+                    class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                    Смотреть
                 </Link>
                 <br>
                 <br>

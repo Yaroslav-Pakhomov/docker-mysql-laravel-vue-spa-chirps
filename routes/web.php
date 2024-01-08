@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use App\Http\Controllers\MessageBoardController;
 use App\Http\Controllers\ProfileController;
-use App\Models\MessageBoard;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -46,6 +45,9 @@ Route::controller(MessageBoardController::class)->group(function () {
 
             // Редактирование объявления
             Route::get('/{messageBoard:slug}/edit', 'edit')->where('message-board:slug', '[a-z0-9_-]+')->name('edit');
+
+            // Удаление объявления
+            Route::delete('/{messageBoard:slug}', 'delete')->where('message-board:slug', '[a-z0-9_-]+')->name('delete');
         });
     });
 });

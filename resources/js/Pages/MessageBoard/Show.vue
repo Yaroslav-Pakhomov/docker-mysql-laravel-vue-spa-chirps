@@ -1,11 +1,29 @@
-<script setup>
+<script>
 import {Head, Link} from '@inertiajs/vue3';
 
-defineProps({
-    message: {
-        type: Object,
-    }
-});
+export default {
+    name: 'ShowMessage',
+
+    // Свойства от родительского компонента, от контроллера
+    props: {
+        message: Object,
+    },
+
+    // Подключаемые компоненты
+    components: {
+        Head,
+        Link,
+    },
+
+    // Методы компонента
+    methods: {
+        deleteSubmit(slug) {
+            console.log(slug)
+            this.$inertia.delete(`/message-board/${slug}`);
+
+        },
+    },
+}
 
 </script>
 
@@ -48,17 +66,34 @@ defineProps({
             <br>
             Содержание: {{ message.content }}
             <br>
-            Слаг: {{ message.slug }}
-            <br>
-            <div class="ml-auto mt-2 text-sm text-justify leading-6 text-gray-600"> Создано: {{ message.created_at }} </div>
 
-            <div class="mt-2 mb-4 text-sm text-justify leading-6 text-gray-600"> Обновлено: {{ message.updated_at }} </div>
+            <div class="ml-auto mt-2 text-sm text-justify leading-6 text-gray-600">
+                Создано: {{
+                    message.created_at
+                }}
+            </div>
+
+            <div class="mt-2 mb-4 text-sm text-justify leading-6 text-gray-600">
+                Обновлено: {{
+                    message.updated_at
+                }}
+            </div>
         </div>
-        <Link
-            :href="route('message-board.edit', [ message.slug ])"
-            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-        >Редактировать
-        </Link>
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+            <Link
+                :href="route('message-board.edit', [ message.slug ])"
+                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
+                Редактировать
+            </Link>
+            <form @submit.prevent="deleteSubmit(message.slug)">
+
+                <button type="submit"
+                        class="rounded-md bg-red-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500">
+                    Удалить
+                </button>
+
+            </form>
+        </div>
     </div>
 
 </template>

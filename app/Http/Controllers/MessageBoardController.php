@@ -9,7 +9,6 @@ use App\Http\Requests\MessageBoard\UpdateMessageBoardRequest;
 use App\Http\Resources\MessageBoard\MessageBoardResource;
 use App\Models\MessageBoard;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -25,8 +24,7 @@ class MessageBoardController extends Controller
         $messages = MessageBoardResource::collection($messages)->resolve();
 
         return inertia('MessageBoard/Index', [
-            'props_int' => 5,
-            'messages'  => $messages,
+            'messages' => $messages,
         ]);
     }
 
@@ -35,9 +33,7 @@ class MessageBoardController extends Controller
      */
     public function create(): Response|ResponseFactory
     {
-        return inertia('MessageBoard/Create', [
-            'props_int' => 444,
-        ]);
+        return inertia('MessageBoard/Create', []);
     }
 
     /**
@@ -60,6 +56,8 @@ class MessageBoardController extends Controller
      */
     public function show(MessageBoard $messageBoard): Response|ResponseFactory
     {
+        // dd($messageBoard);
+
         $message = MessageBoardResource::make($messageBoard)->resolve();
 
         return inertia('MessageBoard/Show', [
@@ -97,8 +95,15 @@ class MessageBoardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(MessageBoard $messageBoard)
+    public function delete(MessageBoard $messageBoard): RedirectResponse
     {
-        //
+        // dd($messageBoard);
+        $messageBoard->delete();
+        // MessageBoard::query()->delete($messageBoard);
+
+        return redirect()->route('message-board.index')->with([
+            'flash_message' => "Сообщение успешно удалено",
+            'class'         => 'alert alert-success',
+        ]);
     }
 }

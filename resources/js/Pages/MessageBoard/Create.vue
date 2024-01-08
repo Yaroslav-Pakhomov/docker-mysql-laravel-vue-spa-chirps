@@ -90,7 +90,7 @@ export default {
 
     // Свойства от родительского компонента, от контроллера
     props: {
-        props_int: Number,
+        // props_int: Number,
         errors: Object,
     },
 
@@ -155,8 +155,6 @@ export default {
             Доска объявлений - Создание объявления
             <br>
             <br>
-            props_int: {{ props_int }}
-
             <form @submit.prevent="createSubmit">
                 <div class="col-span-full">
                     <label for="title" class="block text-sm text-justify font-medium leading-6 text-gray-900 mb-4">
@@ -191,9 +189,13 @@ export default {
                 </div>
 
                 <div class="mt-6 flex items-center justify-end gap-x-6">
-                    <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                    <Link
+                        :href="route('message-board.index')"
+                        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                        Отмена
+                    </Link>
                     <button type="submit"
-                            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
                         Сохранить
                     </button>
                 </div>
